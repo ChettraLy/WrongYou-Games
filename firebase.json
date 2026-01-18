@@ -7,7 +7,11 @@
       "**/node_modules/**",
       "**/*.md",
       "package.json",
-      "package-lock.json"
+      "package-lock.json",
+      "server.js",
+      "start-server.bat",
+      "start-server.ps1",
+      "firebase-debug.log"
     ],
     "rewrites": [],
     "headers": [
