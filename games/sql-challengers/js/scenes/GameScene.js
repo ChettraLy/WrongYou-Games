@@ -350,4 +350,4 @@ export default class GameScene extends Phaser.Scene {
 
         this.scene.start('GameOverScene', { score: this.score, reason: 'You Win!' });
     }
-
+}
