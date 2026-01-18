@@ -13,7 +13,12 @@
       "start-server.ps1",
       "firebase-debug.log"
     ],
-    "rewrites": [],
+    "rewrites": [
+      {
+        "source": "/games/sql-challengers",
+        "destination": "/games/sql-challengers/index.html"
+      }
+    ],
     "headers": [
       {
         "source": "**/*.@(jpg|jpeg|gif|png|svg|webp)",
