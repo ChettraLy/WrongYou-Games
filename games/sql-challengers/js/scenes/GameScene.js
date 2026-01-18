@@ -365,12 +365,12 @@ export default class GameScene extends Phaser.Scene {
         const height = this.cameras.main.height;
 
         // Create semi-transparent overlay
-        const overlay = this.add.rectangle(0, 0, width, height, 0x000000, 0.7);
+        const overlay = this.add.rectangle(0, 0, width, height, 0x000000, 0.85);
         overlay.setOrigin(0, 0);
         overlay.setDepth(1000);
 
         // Show level info
-        const levelInfo = this.add.text(width / 2, height / 2 - 100,
+        const levelInfo = this.add.text(width / 2, height / 2 - 120,
             `LEVEL ${this.currentLevel + 1}: ${this.levelData.name}`, {
             fontFamily: 'Press Start 2P',
             fontSize: '20px',
@@ -380,9 +380,21 @@ export default class GameScene extends Phaser.Scene {
         levelInfo.setOrigin(0.5, 0.5);
         levelInfo.setDepth(1001);
 
+        // Show SQL query
+        const query = this.add.text(width / 2, height / 2 - 70,
+            this.levelData.query, {
+            fontFamily: 'Press Start 2P',
+            fontSize: '10px',
+            color: '#ffff00',
+            align: 'center',
+            wordWrap: { width: width - 100 }
+        });
+        query.setOrigin(0.5, 0.5);
+        query.setDepth(1001);
+
         // Show objective
-        const objective = this.add.text(width / 2, height / 2 - 40,
-            `COLLECT ALL CYAN DATA\nAVOID MAGENTA DATA\nDODGE RED ENEMIES`, {
+        const objective = this.add.text(width / 2, height / 2,
+            `OBJECTIVE:\nCOLLECT ALL CYAN DATA\nAVOID MAGENTA DATA\nDODGE RED ENEMIES`, {
             fontFamily: 'Press Start 2P',
             fontSize: '12px',
             color: '#ffffff',
@@ -392,39 +404,67 @@ export default class GameScene extends Phaser.Scene {
         objective.setOrigin(0.5, 0.5);
         objective.setDepth(1001);
 
-        // Countdown text
-        const countdownText = this.add.text(width / 2, height / 2 + 80, '3', {
+        // Ready prompt
+        const readyText = this.add.text(width / 2, height / 2 + 100,
+            'PRESS SPACE WHEN READY', {
             fontFamily: 'Press Start 2P',
-            fontSize: '72px',
+            fontSize: '14px',
             color: '#00ff00',
             align: 'center'
         });
-        countdownText.setOrigin(0.5, 0.5);
-        countdownText.setDepth(1001);
+        readyText.setOrigin(0.5, 0.5);
+        readyText.setDepth(1001);
 
-        // Countdown sequence
-        let count = 3;
-        const countdownTimer = this.time.addEvent({
-            delay: 1000,
-            callback: () => {
-                count--;
-                if (count > 0) {
-                    countdownText.setText(count.toString());
-                } else if (count === 0) {
-                    countdownText.setText('GO!');
-                    countdownText.setColor('#ffff00');
-                } else {
-                    // Remove overlay and start game
-                    overlay.destroy();
-                    levelInfo.destroy();
-                    objective.destroy();
-                    countdownText.destroy();
-                    this.gamePaused = false;
-                    countdownTimer.destroy();
-                }
-            },
-            callbackScope: this,
-            loop: true
+        // Blinking animation for ready text
+        this.tweens.add({
+            targets: readyText,
+            alpha: 0.3,
+            duration: 500,
+            yoyo: true,
+            repeat: -1
+        });
+
+        // Wait for SPACE key
+        const spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        spaceKey.once('down', () => {
+            // Remove ready prompt
+            readyText.destroy();
+
+            // Create countdown text
+            const countdownText = this.add.text(width / 2, height / 2 + 100, '3', {
+                fontFamily: 'Press Start 2P',
+                fontSize: '72px',
+                color: '#00ff00',
+                align: 'center'
+            });
+            countdownText.setOrigin(0.5, 0.5);
+            countdownText.setDepth(1001);
+
+            // Countdown sequence
+            let count = 3;
+            const countdownTimer = this.time.addEvent({
+                delay: 1000,
+                callback: () => {
+                    count--;
+                    if (count > 0) {
+                        countdownText.setText(count.toString());
+                    } else if (count === 0) {
+                        countdownText.setText('GO!');
+                        countdownText.setColor('#ffff00');
+                    } else {
+                        // Remove overlay and start game
+                        overlay.destroy();
+                        levelInfo.destroy();
+                        query.destroy();
+                        objective.destroy();
+                        countdownText.destroy();
+                        this.gamePaused = false;
+                        countdownTimer.destroy();
+                    }
+                },
+                callbackScope: this,
+                loop: true
+            });
         });
     }
 }
