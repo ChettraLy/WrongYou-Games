@@ -18,7 +18,7 @@ export const GameConfig = {
     // Game settings
     startingLives: 3,
     playerSpeed: 150,
-    enemySpeed: 100,
+    enemySpeed: 60,  // Reduced from 100 to give players more time
     
     // Colors (retro palette)
     colors: {
@@ -47,7 +47,7 @@ export const GameConfig = {
             correctData: ["Alice", "Bob", "Charlie"],
             incorrectData: ["Dave", "Eve"],
             enemyCount: 2,
-            timeLimit: 60
+            timeLimit: 90  // Increased from 60
         },
         {
             id: 2,
@@ -56,7 +56,7 @@ export const GameConfig = {
             correctData: ["Keyboard", "Mouse", "Cable"],
             incorrectData: ["Monitor", "Laptop"],
             enemyCount: 3,
-            timeLimit: 55
+            timeLimit: 80  // Increased from 55
         },
         {
             id: 3,
@@ -65,7 +65,7 @@ export const GameConfig = {
             correctData: ["Player1", "Player2", "Player3"],
             incorrectData: ["Player4", "Player5"],
             enemyCount: 4,
-            timeLimit: 50
+            timeLimit: 75  // Increased from 50
         }
     ]
 };

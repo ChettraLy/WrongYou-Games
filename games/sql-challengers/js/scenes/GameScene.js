@@ -16,10 +16,11 @@ export default class GameScene extends Phaser.Scene {
         this.currentLevel = this.registry.get('currentLevel') || 0;
         this.score = this.registry.get('score') || 0;
         this.lives = this.registry.get('lives') || GameConfig.startingLives;
-        
+
         this.levelData = GameConfig.levels[this.currentLevel];
         this.collectedCorrect = 0;
         this.totalCorrect = this.levelData.correctData.length;
+        this.gamePaused = true;  // Start paused for countdown
     }
 
     create() {
@@ -59,24 +60,32 @@ export default class GameScene extends Phaser.Scene {
             callbackScope: this,
             loop: true
         });
+
+        // Start with countdown
+        this.startCountdown();
     }
 
     update() {
+        // Don't update game logic during countdown
+        if (this.gamePaused) {
+            return;
+        }
+
         // Player movement
         this.player.setVelocity(0);
-        
+
         if (this.cursors.left.isDown) {
             this.player.setVelocityX(-GameConfig.playerSpeed);
         } else if (this.cursors.right.isDown) {
             this.player.setVelocityX(GameConfig.playerSpeed);
         }
-        
+
         if (this.cursors.up.isDown) {
             this.player.setVelocityY(-GameConfig.playerSpeed);
         } else if (this.cursors.down.isDown) {
             this.player.setVelocityY(GameConfig.playerSpeed);
         }
-        
+
         // Enemy AI - simple chase behavior
         this.enemies.children.entries.forEach(enemy => {
             this.physics.moveToObject(enemy, this.player, GameConfig.enemySpeed);
@@ -349,5 +358,73 @@ export default class GameScene extends Phaser.Scene {
         this.registry.set('lives', GameConfig.startingLives);
 
         this.scene.start('GameOverScene', { score: this.score, reason: 'You Win!' });
+    }
+
+    startCountdown() {
+        const width = this.cameras.main.width;
+        const height = this.cameras.main.height;
+
+        // Create semi-transparent overlay
+        const overlay = this.add.rectangle(0, 0, width, height, 0x000000, 0.7);
+        overlay.setOrigin(0, 0);
+        overlay.setDepth(1000);
+
+        // Show level info
+        const levelInfo = this.add.text(width / 2, height / 2 - 100,
+            `LEVEL ${this.currentLevel + 1}: ${this.levelData.name}`, {
+            fontFamily: 'Press Start 2P',
+            fontSize: '20px',
+            color: '#00ffff',
+            align: 'center'
+        });
+        levelInfo.setOrigin(0.5, 0.5);
+        levelInfo.setDepth(1001);
+
+        // Show objective
+        const objective = this.add.text(width / 2, height / 2 - 40,
+            `COLLECT ALL CYAN DATA\nAVOID MAGENTA DATA\nDODGE RED ENEMIES`, {
+            fontFamily: 'Press Start 2P',
+            fontSize: '12px',
+            color: '#ffffff',
+            align: 'center',
+            lineSpacing: 10
+        });
+        objective.setOrigin(0.5, 0.5);
+        objective.setDepth(1001);
+
+        // Countdown text
+        const countdownText = this.add.text(width / 2, height / 2 + 80, '3', {
+            fontFamily: 'Press Start 2P',
+            fontSize: '72px',
+            color: '#00ff00',
+            align: 'center'
+        });
+        countdownText.setOrigin(0.5, 0.5);
+        countdownText.setDepth(1001);
+
+        // Countdown sequence
+        let count = 3;
+        const countdownTimer = this.time.addEvent({
+            delay: 1000,
+            callback: () => {
+                count--;
+                if (count > 0) {
+                    countdownText.setText(count.toString());
+                } else if (count === 0) {
+                    countdownText.setText('GO!');
+                    countdownText.setColor('#ffff00');
+                } else {
+                    // Remove overlay and start game
+                    overlay.destroy();
+                    levelInfo.destroy();
+                    objective.destroy();
+                    countdownText.destroy();
+                    this.gamePaused = false;
+                    countdownTimer.destroy();
+                }
+            },
+            callbackScope: this,
+            loop: true
+        });
     }
 }
