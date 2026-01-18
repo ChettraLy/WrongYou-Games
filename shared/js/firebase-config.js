@@ -12,15 +12,14 @@ import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase
 import { getStorage } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
 
 // Firebase configuration
-// In production, these should come from environment variables
 const firebaseConfig = {
-    apiKey: import.meta.env?.VITE_FIREBASE_API_KEY || "YOUR_API_KEY",
-    authDomain: import.meta.env?.VITE_FIREBASE_AUTH_DOMAIN || "wrongyou-games.firebaseapp.com",
-    projectId: import.meta.env?.VITE_FIREBASE_PROJECT_ID || "wrongyou-games",
-    storageBucket: import.meta.env?.VITE_FIREBASE_STORAGE_BUCKET || "wrongyou-games.appspot.com",
-    messagingSenderId: import.meta.env?.VITE_FIREBASE_MESSAGING_SENDER_ID || "YOUR_SENDER_ID",
-    appId: import.meta.env?.VITE_FIREBASE_APP_ID || "YOUR_APP_ID",
-    measurementId: import.meta.env?.VITE_FIREBASE_MEASUREMENT_ID || "YOUR_MEASUREMENT_ID"
+    apiKey: "AIzaSyBbzvA0nn8Z0xU1M2wQrttGICnFulzieHk",
+    authDomain: "wrongyou-games.firebaseapp.com",
+    projectId: "wrongyou-games",
+    storageBucket: "wrongyou-games.firebasestorage.app",
+    messagingSenderId: "273366185286",
+    appId: "1:273366185286:web:4772762e39f5d9b371e147",
+    measurementId: "G-R020XM6TZ9"
 };
 
 // Initialize Firebase
