@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WrongYou Games - Learn technical skills through retro arcade games. Master SQL, RegEx, Git, and more!">
+    <meta name="keywords" content="educational games, SQL learning, programming games, retro arcade, coding education">
+    <meta name="author" content="WrongYou Games">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.wrongyou.com/">
+    <meta property="og:title" content="WrongYou Games - Learn Tech Skills Through Retro Arcade Games">
+    <meta property="og:description" content="Master SQL, RegEx, Git and more through addictive retro arcade gameplay!">
+    <meta property="og:image" content="https://www.wrongyou.com/assets/og-image.png">
+    
+    <title>WrongYou Games - Learn Tech Skills Through Retro Arcade Games</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- NES.css for retro styling -->
+    <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/platform.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <h1 class="title">
+                    <span class="glitch" data-text="WRONGYOU">WRONGYOU</span>
+                    <span class="subtitle">GAMES</span>
+                </h1>
+            </div>
+            <p class="tagline">Learn Tech Skills Through Retro Arcade Games</p>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="nes-container is-dark with-title">
+                <p class="title">Welcome, Player!</p>
+                <p>Master SQL, RegEx, Git, and more through addictive 8-bit arcade gameplay. 
+                   No boring tutorials—just pure gaming fun that teaches you real skills!</p>
+            </div>
+        </section>
+
+        <!-- Games Grid -->
+        <section class="games-section">
+            <h2 class="section-title">
+                <i class="nes-icon trophy is-large"></i>
+                Available Games
+            </h2>
+            
+            <div class="games-grid">
+                <!-- SQL Challengers -->
+                <div class="game-card nes-container is-dark">
+                    <div class="game-status available">
+                        <i class="nes-icon star"></i> AVAILABLE NOW
+                    </div>
+                    <h3>SQL Challengers</h3>
+                    <p class="game-description">
+                        Master SQL queries by munching correct data! Avoid syntax errors and level up your database skills.
+                    </p>
+                    <div class="game-meta">
+                        <span class="nes-badge">
+                            <span class="is-success">SQL</span>
+                        </span>
+                        <span class="nes-badge">
+                            <span class="is-primary">Database</span>
+                        </span>
+                    </div>
+                    <a href="games/sql-challengers/" class="nes-btn is-success game-btn">
+                        PLAY NOW
+                    </a>
+                </div>
+
+                <!-- RegEx Racer -->
+                <div class="game-card nes-container is-dark">
+                    <div class="game-status coming-soon">
+                        <i class="nes-icon coin"></i> COMING Q2 2026
+                    </div>
+                    <h3>RegEx Racer</h3>
+                    <p class="game-description">
+                        Race through text patterns! Match strings, capture groups, and cross the finish line with perfect regex.
+                    </p>
+                    <div class="game-meta">
+                        <span class="nes-badge">
+                            <span class="is-warning">RegEx</span>
+                        </span>
+                        <span class="nes-badge">
+                            <span class="is-primary">Patterns</span>
+                        </span>
+                    </div>
+                    <button class="nes-btn is-disabled game-btn">
+                        COMING SOON
+                    </button>
+                </div>
+
+                <!-- Git Gauntlet -->
+                <div class="game-card nes-container is-dark">
+                    <div class="game-status coming-soon">
+                        <i class="nes-icon coin"></i> COMING Q3 2026
+                    </div>
+                    <h3>Git Gauntlet</h3>
+                    <p class="game-description">
+                        Navigate the dungeon of version control! Commit, branch, merge, and resolve conflicts to escape.
+                    </p>
+                    <div class="game-meta">
+                        <span class="nes-badge">
+                            <span class="is-error">Git</span>
+                        </span>
+                        <span class="nes-badge">
+                            <span class="is-primary">VCS</span>
+                        </span>
+                    </div>
+                    <button class="nes-btn is-disabled game-btn">
+                        COMING SOON
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="section-title">Why WrongYou Games?</h2>
+            <div class="features-grid">
+                <div class="feature nes-container is-rounded">
+                    <i class="nes-icon heart"></i>
+                    <h3>Learn by Playing</h3>
+                    <p>No boring lectures. Just addictive gameplay that teaches real skills.</p>
+                </div>
+
+                <div class="feature nes-container is-rounded">
+                    <i class="nes-icon trophy"></i>
+                    <h3>Track Progress</h3>
+                    <p>Global leaderboards, achievements, and cloud saves across all devices.</p>
+                </div>
+
+                <div class="feature nes-container is-rounded">
+                    <i class="nes-icon star"></i>
+                    <h3>Retro Vibes</h3>
+                    <p>Classic 8-bit graphics and sounds that bring back the golden age of gaming.</p>
+                </div>
+
+                <div class="feature nes-container is-rounded">
+                    <i class="nes-icon coin"></i>
+                    <h3>100% Free</h3>
+                    <p>All games are free to play. No ads, no paywalls, just pure gaming education.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="nes-container is-dark with-title">
+                <p class="title">Ready to Level Up?</p>
+                <p>Start your journey with SQL Challengers and master database queries through arcade action!</p>
+                <a href="games/sql-challengers/" class="nes-btn is-success cta-btn">
+                    START PLAYING NOW
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2026 WrongYou Games. Built with ❤️ and pixels.</p>
+                <div class="footer-links">
+                    <a href="https://github.com/yourusername/wrongyou-games" target="_blank" class="nes-btn is-primary">
+                        <i class="nes-icon github"></i> GitHub
+                    </a>
+                </div>
+            </div>
+            <p class="footer-note">
+                Made for developers, by developers. Learn tech skills the fun way!
+            </p>
+        </footer>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Firebase configuration will be loaded from shared/js/firebase-config.js
+        // For now, this is a placeholder for future integration
+        console.log('WrongYou Games - Landing Page Loaded');
+    </script>
+</body>
+</html>
+

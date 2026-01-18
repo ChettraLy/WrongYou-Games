@@ -1,0 +1,47 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+    
+    function isUnder5MB() {
+      return request.resource.size < 5 * 1024 * 1024;
+    }
+    
+    // User profile pictures
+    match /users/{userId}/profile/{fileName} {
+      // Anyone can read profile pictures
+      allow read: if true;
+      
+      // Only the user can upload their own profile picture
+      // Must be an image under 5MB
+      allow write: if isOwner(userId) 
+                   && isImage() 
+                   && isUnder5MB();
+    }
+    
+    // User-generated content (future feature)
+    match /users/{userId}/content/{fileName} {
+      allow read: if true;
+      allow write: if isOwner(userId) && isUnder5MB();
+    }
+    
+    // Game assets (read-only for users)
+    match /games/{gameId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if false; // Only admins via Firebase Console
+    }
+  }
+}
+

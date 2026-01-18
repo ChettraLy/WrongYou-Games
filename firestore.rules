@@ -1,0 +1,68 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // User profiles and data
+    match /users/{userId} {
+      // Anyone authenticated can read user profiles
+      allow read: if isAuthenticated();
+      // Users can only write their own profile
+      allow write: if isOwner(userId);
+      
+      // User progress for each game
+      match /progress/{gameId} {
+        allow read: if isAuthenticated();
+        allow write: if isOwner(userId);
+      }
+      
+      // User settings
+      match /settings/{document=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+    
+    // Global leaderboards
+    match /leaderboards/{gameId}/scores/{scoreId} {
+      // Anyone can read leaderboards
+      allow read: if true;
+      
+      // Only authenticated users can create scores
+      // And only for their own userId
+      allow create: if isAuthenticated() 
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.score is number
+                    && request.resource.data.timestamp is timestamp;
+      
+      // Prevent updates and deletes to prevent cheating
+      allow update, delete: if false;
+    }
+    
+    // Achievements (read-only for users)
+    match /achievements/{achievementId} {
+      allow read: if true;
+      allow write: if false; // Only admins can write (via Firebase Console)
+    }
+    
+    // Games metadata (read-only for users)
+    match /games/{gameId} {
+      allow read: if true;
+      allow write: if false; // Only admins can write (via Firebase Console)
+      
+      // Game statistics
+      match /stats/{document=**} {
+        allow read: if true;
+        allow write: if false;
+      }
+    }
+  }
+}
+
